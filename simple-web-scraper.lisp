@@ -4,6 +4,10 @@
 
 (defvar url-patterns* nil)
 
+(defun clear () (setf url-patterns* nil))
+(defun add-url (url) (push url url-patterns*))
+(defun add-pattern (pattern start end) (push (list pattern start end) url-patterns*))
+
 (defun generate-urls (patterns)
   (if (endp patterns) nil
       (let ((p (car patterns)))
@@ -22,3 +26,17 @@
 
 (defun construct-url (parsed-url value)
   (apply #'concatenate 'string (substitute value nil parsed-url)))
+
+(defun fetch-all-urls (urls)
+  (let ((urls (reverse urls)))
+    (loop for url in urls
+       for rest on urls
+       for stream = nil then (nth 4 values)
+       for values = (multiple-value-list (http-request url :stream stream :close (endp (cdr rest))))
+       do (format T "Fetching ~S" url)
+       collect (cons url (car values)))))
+
+(defun fetch-all ()
+  (let ((urls (generate-urls url-patterns*)))
+    (format T "Fetching the following URLs: ~S~%" urls)
+    (fetch-all-urls urls)))
