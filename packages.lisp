@@ -1,4 +1,4 @@
 ;;;; package.lisp
 
-(defpackage #:%ApplicationName%
+(defpackage #:simple-web-scraper
   (:use #:cl))

@@ -1,1 +1,1 @@
-(progn (ql:quickload #:%ApplicationName%) (in-package #:%ApplicationName%))
+(progn (ql:quickload #:simple-web-scraper) (in-package #:simple-web-scraper))
