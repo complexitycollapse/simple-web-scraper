@@ -6,6 +6,6 @@
   :license  ""
   :version "0.0.1"
   :serial t
-  :depends-on (:drakma)
+  :depends-on (:drakma :cl-html-parse :cl-utilities)
   :components ((:file "packages")
                (:file "simple-web-scraper")))
